@@ -1,0 +1,82 @@
+const usuarios = [
+  { nome: "Ana", idade: 20, ativo: true, compras: [100, 50, 25] },
+  { nome: "Bruno", idade: 17, ativo: false, compras: [30, 20] },
+  { nome: "Carlos", idade: 32, ativo: true, compras: [200, 150, 50, 100] },
+  { nome: "Diana", idade: 25, ativo: true, compras: [] },
+  { nome: "Eduardo", idade: 15, ativo: false, compras: [10] }
+];
+
+// Total de compras por usuário
+
+const totalCompras = (compras) => {
+    let soma = 0;
+    for (let valor of compras) {
+        soma = soma + valor;
+    }
+    return soma;
+};
+
+for(let usuario of usuarios) {
+    console.log(usuario.nome);
+    console.log("R$:",totalCompras(usuario.compras));
+}
+
+//Usuários ativos
+
+const usuariosAtivos =(usuarios) => {
+    const ativos = [];
+
+    for (let usuario of usuarios) {
+        if (usuario.ativo){
+            ativos.push(usuario);
+        }
+    }
+    return ativos;
+};
+
+let ativos = usuariosAtivos(usuarios);
+
+for (let usuario of ativos) {
+    console.log(usuario.nome);
+}
+
+// Usuários maiores de idade
+
+const usuariosMaiores = (usuarios) => {
+    const maiores = [];
+
+    for (let usuario of usuarios) {
+        if (usuario.idade >= 18){
+            maiores.push(usuario);
+        }
+    }
+    return maiores
+};
+
+let maiores = usuariosMaiores(usuarios);
+
+for (let usuario of maiores){
+    console.log(usuario.nome);
+}
+
+// Maior volume de compras
+
+const maiorComprador = (usuarios) => {
+    let maiorUsuario = usuarios [0];
+    let maiorTotal = totalCompras(usuarios[0].compras);
+
+    for (let usuario of usuarios) {
+        let total = totalCompras(usuario.compras);
+
+        if (total > maiorTotal){
+            maiorTotal = total;
+            maiorUsuario = usuario;
+        }
+    }
+    return maiorUsuario;
+};
+
+let usuarioMaiorCompra = maiorComprador(usuarios);
+
+console.log("Usuário com maior valor de compras:",usuarioMaiorCompra.nome);
+console.log("R$:", totalCompras(usuarioMaiorCompra.compras));
