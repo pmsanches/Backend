@@ -80,3 +80,78 @@ let usuarioMaiorCompra = maiorComprador(usuarios);
 
 console.log("Usuário com maior valor de compras:",usuarioMaiorCompra.nome);
 console.log("R$:", totalCompras(usuarioMaiorCompra.compras));
+
+//Desafio coerção de tipos
+
+console.log("5" + 2); // o código entendeu o 2 como string e fez a concatenação por conta do sinal utilizado, aqui pode gerar dupla interpretação e ele escolhe o tipo do primeiro valor
+console.log("5" - 2); // o código entendeu o 2 como número e fez a subtração por conta do sinal utilizado
+console.log(true + 1); // o código entendeu o valor de true como 1 e fez a soma com segundo número, pelo fato de não haver aspas leu os dois como número
+console.log(false == 0); // o código entendeu o valor de false como 0 e fez a comparação com o número, sendo assim trazendo o true como resposta pois comparou somente o valor
+console.log(false === 0); // o código entendeu o valor de false como 0 e fez a comparação com o número, sendo assim trazendo o false pois são iguais em valores e diferente em tipo
+
+// Desafio Arrow Function vs Function
+
+// Código 1
+
+const pessoa = {
+  nome: "Maria",
+  falar: function(){
+    console.log(this.nome);
+  }
+};
+
+pessoa.falar();
+
+// Código 2
+
+const pessoas = {
+  nome: "Maria",
+  falar: () => {
+    console.log(this.nome);
+  }
+};
+
+pessoas.falar();
+
+//Qual deles funciona corretamente?
+// O primeiro funciona, o segundo funciona porém retorna undefined
+//Por que o outro não funciona?
+// Porque o arrow function não funciona bem com objetos, a arrow function não cria seu próprio this, ela utiliza o this do escopo onde ela foi definida
+//Qual é o comportamento de this em arrow functions?
+// Como a arrow function utiliza o this do escopo que foi definida, ele não se refere ao objeto pessoa
+
+// Gerando relatório
+
+const gerarRelatorio = (usuarios) => {
+    let totalIdades = 0; 
+    let ativos = 0;
+    
+    for (let usuario of usuarios) { 
+        totalIdades = totalIdades + usuario.idade;
+
+        if (usuario.ativo) { 
+            ativos++; 
+            } 
+        } 
+        
+        const totalUsuarios = usuarios.length; 
+        const usuariosAtivos = ativos; 
+        const usuariosInativos = totalUsuarios - usuariosAtivos; 
+        const mediaIdade = totalIdades / totalUsuarios; 
+        const maior = maiorComprador(usuarios); 
+        
+        return { 
+            totalUsuarios: totalUsuarios, 
+            usuariosAtivos: usuariosAtivos, 
+            usuariosInativos: usuariosInativos, 
+            mediaIdade: mediaIdade, 
+            maiorComprador: maior.nome 
+            }; 
+        };  
+
+    const relatorio = gerarRelatorio(usuarios); 
+    
+    console.log("Relatório final:"); 
+    console.log(relatorio);
+
+
